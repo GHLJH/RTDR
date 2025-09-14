@@ -61,8 +61,6 @@ def restore(modelConfig: Dict):
                 pred_mask, pred_pixel = sampler2(x_in, time)
                 o1 = pred_mask * z
                 o2 = pred_mask * pred_pixel
-                save_image(pred_mask, os.path.join(save_dir_p, f"o1_{idx}.jpg"))
-                save_image(pred_pixel, os.path.join(save_dir_b, f"o2_{idx}.jpg"))
                 eps = o1 - o2
                 x_t = z - eps * r[0][t]
                 min_val = eps.amin(dim=(2, 3), keepdim=True)
@@ -76,7 +74,6 @@ def restore(modelConfig: Dict):
         with tqdm(dataloader, dynamic_ncols=True) as tqdmDataLoader:
             for idx, (images, labels) in enumerate(tqdmDataLoader):
                 x = images.to(device)
-                save_image(x, os.path.join(save_dir, f"x_{idx}.jpg"))
                 random_lists = generate_random_lists(5)
                 x_m = x
                 noise = torch.randn(size=[modelConfig["batch_size"], 3, 64, 64], device=device)
@@ -155,6 +152,7 @@ def main(model_config=None):
 
 if __name__ == '__main__':
     main()
+
 
 
 

@@ -14,7 +14,6 @@ from dataset.load_roof import load_dataset, load_image
 import torch.nn.functional as F
 import random
 
-os.environ['CUDA_LAUNCH_BLOCKING'] = "1"
 
 
 def restore(modelConfig: Dict):
@@ -152,6 +151,7 @@ def main(model_config=None):
 
 if __name__ == '__main__':
     main()
+
 
 
 
